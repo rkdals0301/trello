@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar />
+    여기서 부터 코드를 시작합니다!
     <router-view></router-view>
   </div>
 </template>
