@@ -4,11 +4,10 @@
       <h2>
         Create new board
         <a
-          href=""
+          href
           class="modal-default-button"
           @click.prevent="SET_IS_ADD_BOARD(false)"
-          >&times;</a
-        >
+        >&times;</a>
       </h2>
     </div>
     <div slot="body">
@@ -23,9 +22,7 @@
         type="submit"
         form="add-board-form"
         :disabled="!valid"
-      >
-        Create Board
-      </button>
+      >Create Board</button>
     </div>
   </Modal>
 </template>
@@ -56,8 +53,8 @@ export default {
     ...mapActions(["ADD_BOARD", "FETCH_BOARDS"]),
     addBoard() {
       this.SET_IS_ADD_BOARD(false);
-      this.ADD_BOARD({ title: this.input }).then(() => {
-        this.FETCH_BOARDS();
+      this.ADD_BOARD({ title: this.input }).then(({ id }) => {
+        this.$router.push(`/b/${id}`);
       });
     }
   }
