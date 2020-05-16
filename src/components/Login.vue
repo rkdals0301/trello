@@ -15,21 +15,14 @@
       </div>
       <div>
         <label for="password">Passwrod</label>
-        <input
-          class="form-control"
-          type="password"
-          v-model="password"
-          placeholder="123123"
-        />
+        <input class="form-control" type="password" v-model="password" placeholder="123123" />
       </div>
       <button
         class="btn"
         :class="{ 'btn-success': !invalidForm }"
         type="submit"
         :disabled="invalidForm"
-      >
-        Log In
-      </button>
+      >Log In</button>
     </form>
     <p class="error" v-if="error">{{ error }}</p>
   </div>
@@ -37,6 +30,7 @@
 
 <script>
 import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
