@@ -6,9 +6,9 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    token: null,
     isAddBoard: false,
-    boards: [],
-    token: null
+    boards: []
   },
   getters: {
     isAuth(state) {
@@ -16,13 +16,7 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    SET_IS_ADD_BOARD(state, toggle) {
-      state.isAddBoard = toggle;
-    },
-    SET_BOARDS(state, boards) {
-      state.boards = boards;
-    },
-    LOGIN(state) {
+    LOGIN(state, token) {
       if (!token) return;
       state.token = token;
       localStorage.setItem("token", token);
@@ -32,19 +26,27 @@ const store = new Vuex.Store({
       state.token = null;
       delete localStorage.token;
       api.setAuthInHeader(null);
+    },
+    SET_IS_ADD_BOARD(state, toggle) {
+      state.isAddBoard = toggle;
+    },
+    SET_BOARDS(state, boards) {
+      state.boards = boards;
     }
   },
   actions: {
-    ADD_BOARD(_, { title }) {
-      return api.board.create(title);
-    },
-    FETCH_BOARDS({ commit }) {
-      return api.board.fetch().then(data => commit("SET_BOARDS", data.list));
-    },
     LOGIN({ commit }, { email, password }) {
       return api.auth
         .login(email, password)
         .then(({ accessToken }) => commit("LOGIN", accessToken));
+    },
+    ADD_BOARD(_, { title }) {
+      return api.board.create(title);
+    },
+    FETCH_BOARDS({ commit }) {
+      return api.board.fetch().then(data => {
+        commit("SET_BOARDS", data.list);
+      });
     }
   }
 });
