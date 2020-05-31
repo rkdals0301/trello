@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     this.$refs.inputText.focus();
-    this.setupClickOutside(this.$el);
+    // this.setupClickOutside(this.$el);
   },
   methods: {
     ...mapActions(["ADD_CARD"]),
