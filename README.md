@@ -1,6 +1,22 @@
 # trello
+- trello Clone Coding
 
-> A Vue.js project
+## Technologies
+- Vue
+- Vuex
+- Vue-router
+- axios
+- dragula
+
+## Lecture
+- https://www.inflearn.com/course/vuejs/dashboard
+
+## Reference
+- https://github.com/jeonghwan-kim/lecture-vue-trello
+- https://github.com/jeonghwan-kim/lecture-vue-trello-server
+
+## Website
+- https://rkdals0301.github.io/trello/
 
 ## Build Setup
 
