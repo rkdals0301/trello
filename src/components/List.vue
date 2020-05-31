@@ -1,35 +1,67 @@
 <template>
-  <div class="list">
+  <div class="list" :data-list-id="data.id" >
     <div class="list-header">
-      <div class="list-header-title">{{data.title}}</div>
+      <input v-if="isEditTitle"  class="form-control input-title" type="text" 
+        v-model="inputTitle" ref="inputTitle"
+        @keyup.enter="onSubmitTitle" @blur="onBlurTitle">
+      <div v-else class="list-header-title" @click="onClickTitle">{{data.title}}</div>
     </div>
 
-    <div class="card-list">
-      <CardItem v-for="card in data.cards" :key="card.id" :data="card" />
+    <div class="card-list" :data-list-id="data.id">
+      <CardItem v-for="card in data.cards" :key="`${card.id}`" :data="card"/>
     </div>
-
+    
     <div v-if="isAddCard">
-      <AddCard :list-id="data.id" @close="isAddCard=false" />
+      <AddCard :list-id="data.id" @close="isAddCard=false"/>
     </div>
     <div v-else>
-      <a class="add-card-btn" href @click.prevent="isAddCard=true">&plus; Add a card...</a>
+      <a class="add-card-btn" href="" @click.prevent="isAddCard=true">
+        &plus; Add a card...
+      </a>
     </div>
   </div>
 </template>
 
 <script>
-import AddCard from "./AddCard.vue";
-import CardItem from "./CardItem.vue";
-
+import {mapActions} from 'vuex'
+import AddCard from './AddCard.vue'
+import CardItem from './CardItem.vue'
 export default {
-  components: { AddCard, CardItem },
-  props: ["data"],
+  components: {AddCard, CardItem},
+  props: ['data'],
   data() {
     return {
-      isAddCard: false
-    };
+      isAddCard: false,
+      isEditTitle: false,
+      inputTitle: ''
+    }
+  },
+  created() {
+    this.inputTitle = this.data.title
+  },
+  methods: {
+    ...mapActions([
+      'UPDATE_LIST'
+    ]),
+    onClickTitle() {
+      this.isEditTitle=true
+      this.$nextTick(_=> this.$refs.inputTitle.focus())
+    },
+    onSubmitTitle() {
+      this.$refs.inputTitle.blur()
+    },
+    onBlurTitle() {
+      this.isEditTitle = false
+      this.inputTitle = this.inputTitle.trim()
+      if (!this.inputTitle) return 
+      const id = this.data.id
+      const title = this.inputTitle
+      if (title === this.data.title) return 
+      
+      this.UPDATE_LIST({ id, title })
+    },
   }
-};
+}
 </script>
 
 <style>
@@ -71,10 +103,10 @@ export default {
   overflow-y: scroll;
   min-height: 10px;
 }
-.empty-card-item {
+.empty-card-item   {
   height: 10px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0,0,0, 0);
 }
 .add-card-btn {
   flex: 0 0 auto;
@@ -85,6 +117,6 @@ export default {
 }
 .add-card-btn:focus,
 .add-card-btn:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0,0,0, .1);
 }
 </style>
