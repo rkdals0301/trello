@@ -2,16 +2,16 @@ import dragula from 'dragula'
 import 'dragula/dist/dragula.css'
 
 const dragger = {
-  init(container) {
-    return dragula([...container]);
+  init(container, options) {
+    return dragula([...container], options)
   },
   sibling({el, wrapper, candidates, type}) {
-    const curId = el.dataset[type + 'Id'] * 1;
-    let prev = null;
-    let next = null;
+    const curId = el.dataset[type + 'Id'] * 1
+    let prev = null
+    let next = null
 
     candidates.forEach((el, idx, arr) => {
-      const id = el.dataset[type + 'Id'] * 1;
+      const id = el.dataset[type + 'Id'] * 1
       if (id === curId) {
         prev = idx > 0 ? {
           id: arr[idx - 1].dataset[type + 'Id'] * 1,
@@ -24,8 +24,8 @@ const dragger = {
       }
     })
 
-    return {prev, next};
+    return {prev, next}
   }
 }
 
-export default dragger;
+export default dragger
