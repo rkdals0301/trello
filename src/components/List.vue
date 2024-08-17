@@ -1,8 +1,8 @@
-  
+
 <template>
   <div class="list" :data-list-id="data.id" :data-list-pos="data.pos">
     <div class="list-header">
-      <input v-if="isEditTitle"  class="form-control input-title" type="text" 
+      <input v-if="isEditTitle"  class="form-control input-title" type="text"
         v-model="inputTitle" ref="inputTitle"
         @keyup.enter="onSubmitTitle" @blur="onBlurTitle">
       <div v-else class="list-header-title" @click="onClickTitle">{{data.title}}</div>
@@ -12,7 +12,7 @@
     <div class="card-list" :data-list-id="data.id">
       <CardItem v-for="card in data.cards" :key="`${card.id}`" :data="card"/>
     </div>
-    
+
     <div v-if="isAddCard">
       <AddCard :list-id="data.id" @close="isAddCard=false"/>
     </div>
@@ -56,11 +56,11 @@ export default {
     onBlurTitle() {
       this.isEditTitle = false
       this.inputTitle = this.inputTitle.trim()
-      if (!this.inputTitle) return 
+      if (!this.inputTitle) return
       const id = this.data.id
       const title = this.inputTitle
-      if (title === this.data.title) return 
-      
+      if (title === this.data.title) return
+
       this.UPDATE_LIST({ id, title })
     },
     onDeleteList() {
@@ -107,7 +107,7 @@ export default {
 }
 .card-list {
   flex: 1 1 auto;
-  overflow-y: scroll;
+  overflow-y: auto;
   min-height: 10px;
 }
 .empty-card-item   {

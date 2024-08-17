@@ -14,7 +14,7 @@
         />
       </div>
       <div>
-        <label for="password">Passwrod</label>
+        <label for="password">Password</label>
         <input class="form-control" type="password" v-model="password" placeholder="123123" />
       </div>
       <button
