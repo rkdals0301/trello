@@ -15,7 +15,8 @@ const requireAuth = (to, from, next) => {
 };
 
 const router = new VueRouter({
-  mode: "hash",
+  mode: "history",
+  base: '/trello/',
   routes: [
     { path: "/", component: Home, beforeEnter: requireAuth },
     { path: "/login", component: Login },

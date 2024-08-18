@@ -1,11 +1,13 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/trello/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/trello/' : '/',
     filename: 'build.js'
   },
   module: {
@@ -53,7 +55,20 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      inject: true,
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, './404.html'),
+        to: path.resolve(__dirname, 'dist'),
+      }
+    ])
+
+  ],
 }
 
 if (process.env.NODE_ENV === 'production') {
