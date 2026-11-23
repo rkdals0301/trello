@@ -6,8 +6,7 @@
         class="board-item"
         v-for="b in boards"
         :key="b.id"
-        :data-bgcolor="b.bgColor"
-        ref="boardItem"
+        :style="{ backgroundColor: b.bgColor }"
       >
         <router-link :to="`/b/${b.id}`">
           <div class="board-item-title">{{ b.title }}</div>
@@ -45,11 +44,6 @@ export default {
   created() {
     this.fetchData()
     this.SET_THEME()
-  },
-  updated() {
-    this.$refs.boardItem.forEach(el => {
-      el.style.backgroundColor = el.dataset.bgcolor
-    })
   },
   methods: {
     ...mapMutations([

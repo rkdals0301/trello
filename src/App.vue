@@ -1,8 +1,6 @@
 <template>
-  <div id="app">
-    <Navbar />
-    <router-view class="container"></router-view>
-  </div>
+  <Navbar />
+  <router-view class="container"></router-view>
 </template>
 
 <script>

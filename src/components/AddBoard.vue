@@ -1,6 +1,6 @@
 <template>
   <Modal>
-    <div slot="header">
+    <template #header>
       <h2>
         Create new board
         <a
@@ -9,13 +9,13 @@
           @click.prevent="SET_IS_ADD_BOARD(false)"
         >&times;</a>
       </h2>
-    </div>
-    <div slot="body">
+    </template>
+    <template #body>
       <form id="add-board-form" @submit.prevent="addBoard">
         <input class="form-control" type="text" v-model="input" ref="input" />
       </form>
-    </div>
-    <div slot="footer">
+    </template>
+    <template #footer>
       <button
         class="btn"
         :class="{ 'btn-success': valid }"
@@ -23,7 +23,7 @@
         form="add-board-form"
         :disabled="!valid"
       >Create Board</button>
-    </div>
+    </template>
   </Modal>
 </template>
 

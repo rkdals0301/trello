@@ -1,4 +1,4 @@
-import dragula from 'dragula'
+import dragula from 'dragula/dist/dragula.js'
 import 'dragula/dist/dragula.css'
 
 const dragger = {
