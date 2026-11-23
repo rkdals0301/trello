@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import {markRaw} from 'vue'
 import {mapState, mapMutations, mapActions} from 'vuex'
 import List from './List.vue'
 import BoardSettings from './BoardSettings.vue'
@@ -64,6 +65,10 @@ export default {
     this.setCardDragabble()
     this.setListDragabble()
   },
+  beforeUnmount() {
+    this.cDragger?.destroy()
+    this.lDragger?.destroy()
+  },
   methods: {
     ...mapMutations([
       'SET_THEME',
@@ -98,7 +103,7 @@ export default {
     },
     setCardDragabble() {
       if (this.cDragger) this.cDragger.destroy()
-      this.cDragger = dragger.init(Array.from(this.$el.querySelectorAll('.card-list')))
+      this.cDragger = markRaw(dragger.init(this.$el.querySelectorAll('.card-list')))
       this.cDragger.on('drop', (el, wrapper, target, silblings) => {
         const targetCard = {
           id: el.dataset.cardId * 1,
@@ -122,10 +127,10 @@ export default {
       const options = {
         invalid: (el, handle) => !/^list/.test(handle.className)
       }
-      this.lDragger = dragger.init(
-        Array.from(this.$el.querySelectorAll('.list-section')),
+      this.lDragger = markRaw(dragger.init(
+        this.$el.querySelectorAll('.list-section'),
         options
-      )
+      ))
       this.lDragger.on('drop', (el, wrapper, target, silblings) => {
         const targetList = {
           id: el.dataset.listId * 1,

@@ -1,20 +1,22 @@
 <template>
   <Modal class="modal-card">
-    <div slot="header" class="modal-card-header">
-      <div class="modal-card-header-title">
-        <input
-          class="form-control"
-          type="text"
-          :value="card.title"
-          :readonly="!toggleTitle"
-          @click="toggleTitle=true"
-          @blur="onBlurTitle"
-          ref="inputTitle"
-        />
+    <template #header>
+      <div class="modal-card-header">
+        <div class="modal-card-header-title">
+          <input
+            class="form-control"
+            type="text"
+            :value="card.title"
+            :readonly="!toggleTitle"
+            @click="toggleTitle=true"
+            @blur="onBlurTitle"
+            ref="inputTitle"
+          />
+        </div>
+        <a class="modal-close-btn" href @click.prevent="onClose">&times;</a>
       </div>
-      <a class="modal-close-btn" href @click.prevent="onClose">&times;</a>
-    </div>
-    <div slot="body">
+    </template>
+    <template #body>
       <h3>Description</h3>
       <textarea
         class="form-control"
@@ -27,8 +29,10 @@
         ref="inputDesc"
         v-model="card.description"
       ></textarea>
-    </div>
-    <div slot="footer"></div>
+    </template>
+    <template #footer>
+      <div></div>
+    </template>
   </Modal>
 </template>
 

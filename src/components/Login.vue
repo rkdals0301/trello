@@ -56,7 +56,7 @@ export default {
           this.$router.push(this.rPath);
         })
         .catch(err => {
-          this.error = err.data.error;
+          this.error = err.data?.error || err.message;
         });
     }
   }
